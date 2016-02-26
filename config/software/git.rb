@@ -22,6 +22,7 @@ dependency "zlib"
 dependency "openssl"
 dependency "pcre"
 dependency "libiconv"
+dependency "gettext"
 dependency "expat"
 
 relative_path "git-#{version}"
