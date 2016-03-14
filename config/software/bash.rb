@@ -30,6 +30,7 @@ build do
   env = with_standard_compiler_flags(with_embedded_path)
 
   configure_command = ["./configure",
+                       "--disable-nls",
                        "--prefix=#{install_dir}/embedded"]
 
   # On freebsd, you have to force static linking, otherwise the executable
