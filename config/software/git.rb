@@ -98,8 +98,8 @@ build do
     configure_command << "--with-expat=#{install_dir}/embedded"
   end
 
-  command configure_command.join(" "), env: env
-
-  make "-j #{workers}", env: env
+  # command configure_command.join(" "), env: env
+  make "distclean"
+  make "prefix=#{install_dir}/embedded -j #{workers}", env: env
   make "install", env: env
 end
