@@ -101,5 +101,5 @@ build do
   # command configure_command.join(" "), env: env
   make "distclean"
   make "prefix=#{install_dir}/embedded -j #{workers}", env: env
-  make "install", env: env
+  make "prefix=#{install_dir}/embedded install", env: env
 end
