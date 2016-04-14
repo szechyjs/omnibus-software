@@ -15,13 +15,26 @@
 #
 
 name "binutils"
-default_version "2.25-tdm64-1"
+default_version "2.26"
 
-dependency "msys-base"
+version("2.26") { source sha256: "9615feddaeedc214d1a1ecd77b6697449c952eab69d79ab2125ea050e944bcc1" }
 
-source url: "http://iweb.dl.sourceforge.net/project/tdm-gcc/GNU%20binutils/binutils-#{version}.tar.lzma"
-version("2.25-tdm64-1") { source sha256: "4722bb7b4d46cef714234109e25e5d1cfd29f4e53365b6d615c8a00735f60e40" }
+source url: "https://ftp.gnu.org/gnu/binutils/binutils-#{version}.tar.gz"
+
+dependency "config_guess"
+
+relative_path "binutils-#{version}"
 
 build do
-  copy "*", "#{install_dir}/embedded"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  update_config_guess
+
+  configure_command = ["./configure",
+                     "--prefix=#{install_dir}/embedded"]
+
+  command configure_command.join(" "), env: env
+
+  make "-j #{workers}", env: env
+  make "-j #{workers} install", env: env
 end

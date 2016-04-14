@@ -17,10 +17,12 @@
 name "gcc"
 default_version "4.9.2"
 
+dependency "binutils"
 dependency "gmp"
 dependency "mpfr"
 dependency "mpc"
 dependency "libiconv"
+dependency "config_guess"
 
 version("4.9.3")      { source md5: "648bfba342bb41a4b5350fb685f85bc5" }
 version("4.9.2")      { source md5: "76f464e0511c26c93425a9dcdc9134cf" }
@@ -34,12 +36,14 @@ relative_path "gcc-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  update_config_guess
+
   configure_command = ["./configure",
                      "--prefix=#{install_dir}/embedded",
                      "--disable-nls",
-                     "--enable-languages=c,c++",
-                     "--with-as=/usr/ccs/bin/as",
-                     "--with-ld=/usr/ccs/bin/ld"]
+                     "--enable-languages=c,c++"]
+                    #  "--with-as=/usr/ccs/bin/as",
+                    #  "--with-ld=/usr/ccs/bin/ld"]
 
 
   command configure_command.join(" "), env: env
