@@ -30,8 +30,14 @@ build do
 
   update_config_guess
 
+  if solaris_10?
+    env['AR'] = '/usr/sfw/i386-sun-solaris2.10/bin/ar'
+    patch source: "binutils-solaris-hwcap.patch"
+  end
+
   configure_command = ["./configure",
-                     "--prefix=#{install_dir}/embedded"]
+                       "--without-nls",
+                       "--prefix=#{install_dir}/embedded"]
 
   command configure_command.join(" "), env: env
 

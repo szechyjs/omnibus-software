@@ -1,0 +1,13 @@
+--- binutils-2.26/include/elf/common.h.orig	Thu Apr 14 17:20:23 2016
++++ binutils-2.26/include/elf/common.h	Thu Apr 14 17:20:55 2016
+@@ -1007,8 +1007,10 @@
+ #define AT_SUN_LDNAME   2006    /* String giving name of dynamic linker.  */
+ #define AT_SUN_LPAGESZ  2007    /* Large pagesize.   */
+ #define AT_SUN_PLATFORM 2008    /* Platform name string.  */
++#ifndef AT_SUN_HWCAP
+ #define AT_SUN_HWCAP    2009	/* Machine dependent hints about
+ 				   processor capabilities.  */
++#endif
+ #define AT_SUN_IFLUSH   2010    /* Should flush icache? */
+ #define AT_SUN_CPU      2011    /* CPU name string.  */
+ #define AT_SUN_EMUL_ENTRY 2012	/* COFF entry point address.  */

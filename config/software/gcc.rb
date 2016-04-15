@@ -41,9 +41,11 @@ build do
   configure_command = ["./configure",
                      "--prefix=#{install_dir}/embedded",
                      "--disable-nls",
-                     "--enable-languages=c,c++"]
-                    #  "--with-as=/usr/ccs/bin/as",
-                    #  "--with-ld=/usr/ccs/bin/ld"]
+                     "--enable-languages=c,c++",
+                     "--with-gnu-as",
+                     "--with-gnu-ld",
+                     "--with-as=#{install_dir}/embedded/bin/as",
+                     "--with-ld=#{install_dir}/embedded/bin/ld"]
 
 
   command configure_command.join(" "), env: env

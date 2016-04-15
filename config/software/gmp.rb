@@ -22,6 +22,8 @@ version("6.0.0a") { source md5: "b7ff2d88cae7f8085bd5006096eed470" }
 
 source url: "https://ftp.gnu.org/gnu/gmp/gmp-#{version}.tar.bz2"
 
+dependency "m4" if solaris_10?
+
 if version == "6.0.0a"
   # version 6.0.0a expands to 6.0.0
   relative_path "gmp-6.0.0"
