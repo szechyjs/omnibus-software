@@ -176,6 +176,7 @@ build do
                        "--disable-dtrace"]
   configure_command << "--with-ext=psych" if version.satisfies?('< 2.3')
   configure_command << "--with-bundled-md5" if fips_enabled
+  configure_command << "--disable-ipv6" if solaris_10?
 
   if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries
