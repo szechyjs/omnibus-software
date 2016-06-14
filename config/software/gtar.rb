@@ -32,6 +32,9 @@ build do
   configure_command = [
     "./configure",
     "--prefix=#{install_dir}/embedded",
+    "--without-selinux",
+    "--without-xattr",
+
   ]
 
   command configure_command.join(" "), env: env
