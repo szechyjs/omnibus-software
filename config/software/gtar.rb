@@ -18,6 +18,7 @@ name "gtar"
 default_version "1.29"
 
 version("1.29") { source md5: "c57bd3e50e43151442c1995f6236b6e9" }
+version("1.28") { source md5: "6ea3dbea1f2b0409b234048e021a9fd7" }
 
 license "GPL-3.0"
 license_file "COPYING"
@@ -34,6 +35,16 @@ build do
     "--prefix=#{install_dir}/embedded",
     "--without-selinux",
   ]
+
+  if nexus? || ios_xr?
+    # ios_xr and nexus don't have build in acl support
+    configure_command << " --disable-acl"
+  elsif aix?
+    # AIX has a gross patch that is required since xlc gets confused by too many #ifndefs
+    patch_env = env.dup
+    patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}"
+    patch source: "aix_ifndef.patch", plevel: 0, env: patch_env
+  end
 
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
